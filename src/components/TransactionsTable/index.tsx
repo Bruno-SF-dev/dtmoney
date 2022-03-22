@@ -1,6 +1,12 @@
+import { useEffect } from "react";
+import { api } from "../../services/api";
 import * as Styled from "./styles";
 
 const TransactionsTable = () => {
+  useEffect(() => {
+    api.get("transactions").then((response) => console.log(response.data));
+  }, []);
+
   return (
     <Styled.Container>
       <table>
