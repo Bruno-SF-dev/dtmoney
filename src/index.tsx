@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createServer } from "miragejs";
+import { createServer, Model } from "miragejs";
 import { App } from "./App";
 
 createServer({
-  routes() {
-    this.namespace = "api";
+  models: {
+    transaction: Model,
+  },
 
     this.get("/transactions", () => {
       return [
@@ -17,7 +18,10 @@ createServer({
           category: "Food",
           createdAt: new Date(),
         },
-      ];
+    this.post("/transactions", (schema, request) => {
+      const data = JSON.parse(request.requestBody);
+
+      return schema.create("transaction", data);
     });
   },
 });
