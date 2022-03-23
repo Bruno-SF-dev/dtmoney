@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import Modal from "react-modal";
 
 import * as Styled from "./styles";
@@ -17,6 +17,14 @@ const NewTransactionModal = ({
   onCloseTransactionModal,
 }: NewTransactionModalProps) => {
   const [type, setType] = useState("deposit");
+  const [title, setTitle] = useState("");
+  const [value, setValue] = useState(0);
+  const [category, setCategory] = useState("");
+
+  const handleCreateNewTransaction = (e: FormEvent) => {
+    e.preventDefault();
+    console.log({ title, value, category, type });
+  };
 
   return (
     <Modal
@@ -33,11 +41,20 @@ const NewTransactionModal = ({
         <img src={closeImg} alt="Fechar modal" />
       </button>
 
-      <Styled.Container>
+      <Styled.Container onSubmit={handleCreateNewTransaction}>
         <h2>Cadastrar transação</h2>
 
-        <input placeholder="Título" />
-        <input type="number" placeholder="Valor" />
+        <input
+          placeholder="Título"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <input
+          type="number"
+          placeholder="Valor"
+          value={value}
+          onChange={(e) => setValue(Number(e.target.value))}
+        />
 
         <Styled.TransactionTypeContainer>
           <Styled.RadioBox
@@ -61,7 +78,11 @@ const NewTransactionModal = ({
           </Styled.RadioBox>
         </Styled.TransactionTypeContainer>
 
-        <input placeholder="Categoria" />
+        <input
+          placeholder="Categoria"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        />
 
         <button type="submit">Cadastrar</button>
       </Styled.Container>
