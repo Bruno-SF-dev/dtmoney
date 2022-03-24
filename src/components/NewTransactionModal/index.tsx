@@ -1,6 +1,7 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useContext } from "react";
 import Modal from "react-modal";
 import { api } from "../../services/api";
+import { TransactionsContext } from "../../TransactionsContext";
 
 import * as Styled from "./styles";
 
@@ -17,22 +18,28 @@ const NewTransactionModal = ({
   isOpen,
   onCloseTransactionModal,
 }: NewTransactionModalProps) => {
+  const { createTransaction } = useContext(TransactionsContext);
+
   const [type, setType] = useState("deposit");
   const [title, setTitle] = useState("");
-  const [value, setValue] = useState(0);
+  const [amount, setAmount] = useState(0);
   const [category, setCategory] = useState("");
 
-  const handleCreateNewTransaction = (e: FormEvent) => {
+  const handleCreateNewTransaction = async (e: FormEvent) => {
     e.preventDefault();
 
-    const data = {
+    await createTransaction({
       title,
-      value,
+      amount,
       category,
       type,
-    };
+    });
 
-    api.post("transactions", data);
+    setType("deposit");
+    setTitle("");
+    setAmount(0);
+    setCategory("");
+    onCloseTransactionModal();
   };
 
   return (
@@ -61,8 +68,8 @@ const NewTransactionModal = ({
         <input
           type="number"
           placeholder="Valor"
-          value={value}
-          onChange={(e) => setValue(Number(e.target.value))}
+          value={amount}
+          onChange={(e) => setAmount(Number(e.target.value))}
         />
 
         <Styled.TransactionTypeContainer>
