@@ -1,8 +1,10 @@
-import { useTransactions } from "../../hooks/useTransactions";
+import { useContext } from "react";
+import { TransactionsListContext } from "../../contexts/transactionsListContext";
+
 import * as Styled from "./styles";
 
 const TransactionsTable = () => {
-  const { transactions } = useTransactions();
+  const { transactionsList } = useContext(TransactionsListContext);
 
   return (
     <Styled.Container>
@@ -15,7 +17,7 @@ const TransactionsTable = () => {
         </thead>
 
         <tbody>
-          {transactions.map((transaction) => (
+          {transactionsList.map((transaction) => (
             <tr key={transaction.id}>
               <td>{transaction.title}</td>
               <td className={transaction.type}>
@@ -26,9 +28,7 @@ const TransactionsTable = () => {
               </td>
               <td>{transaction.category}</td>
               <td>
-                {new Intl.DateTimeFormat("pt-BR").format(
-                  new Date(transaction.createdAt),
-                )}
+                {new Intl.DateTimeFormat("pt-BR").format(transaction.createdAt)}
               </td>
             </tr>
           ))}

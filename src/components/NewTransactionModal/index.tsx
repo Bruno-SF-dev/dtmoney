@@ -1,6 +1,6 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import Modal from "react-modal";
-import { useTransactions } from "../../hooks/useTransactions";
+import { TransactionsListContext } from "../../contexts/transactionsListContext";
 
 import * as Styled from "./styles";
 
@@ -17,7 +17,7 @@ const NewTransactionModal = ({
   isOpen,
   onCloseTransactionModal,
 }: NewTransactionModalProps) => {
-  const { createTransaction } = useTransactions();
+  const { createTransaction } = useContext(TransactionsListContext);
 
   const [type, setType] = useState("deposit");
   const [title, setTitle] = useState("");
@@ -32,6 +32,7 @@ const NewTransactionModal = ({
       amount,
       category,
       type,
+      createdAt: Date.now(),
     });
 
     setType("deposit");

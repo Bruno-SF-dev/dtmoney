@@ -1,4 +1,5 @@
-import { useTransactions } from "../../hooks/useTransactions";
+import { useContext } from "react";
+import { TransactionsListContext } from "../../contexts/transactionsListContext";
 
 import * as Styled from "./styles";
 
@@ -7,9 +8,9 @@ import outcomeImg from "../../assets/outcome.svg";
 import totalImg from "../../assets/total.svg";
 
 const Summary = () => {
-  const { transactions } = useTransactions();
+  const { transactionsList } = useContext(TransactionsListContext);
 
-  const summary = transactions.reduce(
+  const summary = transactionsList.reduce(
     (acc, transaction) => {
       if (transaction.type === "deposit") {
         acc.deposits += transaction.amount;
