@@ -1,6 +1,7 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
@@ -28,6 +29,8 @@ interface LoginData {
 
 interface AuthContextData {
   user: User;
+  isAuthenticated: boolean;
+  isLoading: boolean;
   onCreateUser: (user: CreateUserData) => Promise<void>;
   onLogin: (user: LoginData) => Promise<void>;
 }
@@ -38,6 +41,31 @@ export const AuthContext = createContext<AuthContextData>(
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User>({} as User);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (userState) => {
+      if (userState) {
+        setIsAuthenticated(true);
+
+        setUser({
+          id: userState.uid,
+          userName: userState.displayName,
+        });
+
+        setIsAuthenticated(true);
+        setIsLoading(false);
+      } else {
+        setIsAuthenticated(false);
+        setIsLoading(false);
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   const onCreateUser = async (createUserData: CreateUserData) => {
     const created = await createUserWithEmailAndPassword(
@@ -47,7 +75,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     );
 
     updateProfile(created.user, {
-      displayName: user.userName,
+      displayName: createUserData.userName,
     });
 
     console.log("User created", created.user);
@@ -67,7 +95,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, onCreateUser, onLogin }}>
+    <AuthContext.Provider
+      value={{ user, isAuthenticated, isLoading, onCreateUser, onLogin }}
+    >
       {children}
     </AuthContext.Provider>
   );

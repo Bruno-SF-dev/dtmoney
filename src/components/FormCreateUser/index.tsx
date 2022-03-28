@@ -2,6 +2,8 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/authContext";
 
+import * as Styled from "./styles";
+
 export function FormCreateUser() {
   const navigate = useNavigate();
   const { onCreateUser } = useContext(AuthContext);
@@ -14,15 +16,15 @@ export function FormCreateUser() {
     try {
       await onCreateUser({ email, password, userName });
 
-      navigate("/login");
+      navigate("/auth/login");
     } catch (err: any) {
       console.log(err.message);
     }
   }
 
   return (
-    <form>
-      <h1>Cadastrar</h1>
+    <Styled.Container>
+      <h2>Cadastrar</h2>
       <input
         type="text"
         value={userName}
@@ -41,9 +43,9 @@ export function FormCreateUser() {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Senha"
       />
-      <button type="button" onClick={handleSubmit}>
-        Enviar
+      <button className="btn-submit" onClick={handleSubmit}>
+        Cadastrar
       </button>
-    </form>
+    </Styled.Container>
   );
 }

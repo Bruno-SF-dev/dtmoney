@@ -62,7 +62,7 @@ export function TransactionsListProvider({
     console.log("transactionsRef", transactionsRef);
 
     onValue(transactionsRef, (transactions) => {
-      const transactionsObj: FirebaseTransactionsObj = transactions.val();
+      const transactionsObj: FirebaseTransactionsObj = transactions.val() || {};
 
       console.log("transactions", transactions);
       console.log("transactionsObj", transactionsObj);
