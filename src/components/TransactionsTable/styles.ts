@@ -3,12 +3,17 @@ import styled from "styled-components";
 export const Container = styled.div`
   margin-top: 4rem;
 
+  & > p {
+    text-align: center;
+    color: var(--dark-gray-soft);
+  }
+
   table {
     width: 100%;
     border-spacing: 0 0.5rem;
 
     th {
-      color: var(--text-body);
+      color: var(--dark-gray-soft);
       font-weight: 400;
       padding: 1rem 2rem;
       text-align: left;
@@ -18,12 +23,16 @@ export const Container = styled.div`
     td {
       padding: 1rem 2rem;
       border: 0;
-      background-color: var(--shape);
-      color: var(--text-body);
-      border-radius: 0.25rem;
+      background-color: var(--dark-black);
+      color: var(--dark-gray-soft);
 
       &:first-child {
-        color: var(--text-title);
+        color: var(--dark-white);
+        border-radius: 0.25rem 0 0 0.25rem;
+      }
+
+      &:last-child {
+        border-radius: 0 0.25rem 0.25rem 0;
       }
 
       &.deposit {

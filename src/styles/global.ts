@@ -1,3 +1,4 @@
+import { transparentize } from "polished";
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
@@ -11,6 +12,12 @@ export const GlobalStyle = createGlobalStyle`
     --text-body: #969cb3;
     --background: #f0f2f5;
     --shape: #ffffff;
+
+    --dark-black: #181818;
+    --dark-black-soft: #212121;
+    --dark-gray: #3d3d3d;
+    --dark-gray-soft: #aaaaaa;
+    --dark-white: #ffffff;
   }
 
   * {
@@ -20,7 +27,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: var(--background) ;
+    background: var(--dark-black-soft) ;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -47,6 +54,57 @@ export const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
+  input {
+    width: 100%;
+    height: 3.5rem;
+    padding: 0 1.5rem;
+    border-radius: 0.25rem;
+
+    border: 1px solid var(--dark-black-soft);
+    background: var(--dark-black-soft);
+
+    font-size: 1rem;
+    color: var(--dark-white);
+
+    &::placeholder {
+      color: ${transparentize(0.3, "#aaaaaa")};
+    }
+
+    & + input {
+      margin-top: 1rem;
+    }
+
+    &[type="number"] {
+      -moz-appearance: textfield;
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+  }
+
+  button.btn-submit {
+    margin-top: 1.5rem;
+    width: 100%;
+    height: 3.5rem;
+    padding: 0 1.5rem;
+    border-radius: 0.25rem;
+
+    border: 0;
+    background: var(--green);
+
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+
+    transition: filter 0.2s;
+
+    &:hover {
+      filter: brightness(0.9);
+    }
+  }
+
   [disabled] {
     opacity: 0.6;
     cursor: not-allowed;
@@ -61,12 +119,13 @@ export const GlobalStyle = createGlobalStyle`
     display: flex;
     justify-content: center;
     align-items: center;
+    backdrop-filter: blur(3px);
   }
 
   .react-modal-content {
     width: 100%;
     max-width: 576px;
-    background: var(--background);
+    background: var(--dark-black);
     padding: 3rem;
     border-radius: 0.25rem;
     position: relative;

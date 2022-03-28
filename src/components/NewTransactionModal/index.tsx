@@ -21,7 +21,7 @@ const NewTransactionModal = ({
 
   const [type, setType] = useState("deposit");
   const [title, setTitle] = useState("");
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
 
   const handleCreateNewTransaction = async (e: FormEvent) => {
@@ -29,7 +29,7 @@ const NewTransactionModal = ({
 
     await createTransaction({
       title,
-      amount,
+      amount: Number(amount),
       category,
       type,
       createdAt: Date.now(),
@@ -37,7 +37,7 @@ const NewTransactionModal = ({
 
     setType("deposit");
     setTitle("");
-    setAmount(0);
+    setAmount("");
     setCategory("");
     onCloseTransactionModal();
   };
@@ -69,7 +69,7 @@ const NewTransactionModal = ({
           type="number"
           placeholder="Valor"
           value={amount}
-          onChange={(e) => setAmount(Number(e.target.value))}
+          onChange={(e) => setAmount(e.target.value)}
         />
 
         <Styled.TransactionTypeContainer>
@@ -100,7 +100,9 @@ const NewTransactionModal = ({
           onChange={(e) => setCategory(e.target.value)}
         />
 
-        <button type="submit">Cadastrar</button>
+        <button type="submit" className="btn-submit">
+          Cadastrar
+        </button>
       </Styled.Container>
     </Modal>
   );
