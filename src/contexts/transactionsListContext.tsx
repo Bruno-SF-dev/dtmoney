@@ -1,4 +1,4 @@
-import { onValue, push, ref, set } from "firebase/database";
+import { onValue, push, ref, remove, set } from "firebase/database";
 import {
   createContext,
   ReactNode,
@@ -44,6 +44,7 @@ type FirebaseTransactionsObj = Record<
 interface TransactionContextData {
   transactionsList: Transaction[];
   createTransaction: (transactionData: TransactionData) => Promise<void>;
+  removeTransaction: (transactionId: string) => void;
 }
 
 export const TransactionsListContext = createContext<TransactionContextData>(
@@ -91,9 +92,18 @@ export function TransactionsListProvider({
     await set(newTransactionRef, transactionData);
   };
 
+  const removeTransaction = (transactionId: string) => {
+    const transactionRef = ref(
+      database,
+      `transactions/${user.id}/${transactionId}`,
+    );
+
+    remove(transactionRef);
+  };
+
   return (
     <TransactionsListContext.Provider
-      value={{ transactionsList, createTransaction }}
+      value={{ transactionsList, createTransaction, removeTransaction }}
     >
       {children}
     </TransactionsListContext.Provider>

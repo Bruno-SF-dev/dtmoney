@@ -3,8 +3,16 @@ import { TransactionsListContext } from "../../contexts/transactionsListContext"
 
 import * as Styled from "./styles";
 
+import trashIcon from "../../assets/trash.svg";
+
 const TransactionsTable = () => {
-  const { transactionsList } = useContext(TransactionsListContext);
+  const { transactionsList, removeTransaction } = useContext(
+    TransactionsListContext,
+  );
+
+  const handleRemoveTransaction = (transactionId: string) => {
+    removeTransaction(transactionId);
+  };
 
   return (
     <Styled.Container>
@@ -33,9 +41,17 @@ const TransactionsTable = () => {
                 </td>
                 <td>{transaction.category}</td>
                 <td>
-                  {new Intl.DateTimeFormat("pt-BR").format(
-                    transaction.createdAt,
-                  )}
+                  <span>
+                    {new Intl.DateTimeFormat("pt-BR").format(
+                      transaction.createdAt,
+                    )}
+                  </span>
+                  <button
+                    title="Remover Transação"
+                    onClick={() => handleRemoveTransaction(transaction.id)}
+                  >
+                    <img src={trashIcon} alt="Lixeira (Remover Transação)" />
+                  </button>
                 </td>
               </tr>
             ))}

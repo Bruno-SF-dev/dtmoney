@@ -20,6 +20,15 @@ export const Container = styled.div`
       line-height: 1.5rem;
     }
 
+    tr:hover {
+      td:last-child {
+        button {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+
     td {
       padding: 1rem 2rem;
       border: 0;
@@ -41,6 +50,27 @@ export const Container = styled.div`
 
       &.withdraw {
         color: var(--red);
+      }
+
+      &:last-child {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        button {
+          background: transparent;
+          padding: 0;
+          border: none;
+          font-size: 0;
+
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.2s;
+
+          img {
+            width: 20px;
+          }
+        }
       }
     }
   }
