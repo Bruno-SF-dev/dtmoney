@@ -17,7 +17,7 @@ const Header = ({ onOpenNewTransactionModal }: HeaderProps) => {
     <Styled.Container>
       <Styled.Content>
         <div>
-          <img src={logoImg} alt="dt money" />
+          <img src={logoImg} alt="dt money" draggable="false" />
           {user.userName && <h2>| {user.userName}</h2>}
         </div>
         <button type="button" onClick={onOpenNewTransactionModal}>

@@ -36,7 +36,7 @@ const Summary = () => {
       <div>
         <header>
           <p>Entradas</p>
-          <img src={incomeImg} alt="Entradas" />
+          <img src={incomeImg} alt="Entradas" draggable="false" />
         </header>
         <strong>
           {new Intl.NumberFormat("pt-BR", {
@@ -48,7 +48,7 @@ const Summary = () => {
       <div>
         <header>
           <p>Saídas</p>
-          <img src={outcomeImg} alt="Saídas" />
+          <img src={outcomeImg} alt="Saídas" draggable="false" />
         </header>
         <strong>
           -
@@ -61,7 +61,7 @@ const Summary = () => {
       <div className="highlight-background">
         <header>
           <p>Total</p>
-          <img src={totalImg} alt="Total" />
+          <img src={totalImg} alt="Total" draggable="false" />
         </header>
         <strong>
           {new Intl.NumberFormat("pt-BR", {

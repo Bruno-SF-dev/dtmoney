@@ -50,7 +50,11 @@ const TransactionsTable = () => {
                     title="Remover Transação"
                     onClick={() => handleRemoveTransaction(transaction.id)}
                   >
-                    <img src={trashIcon} alt="Lixeira (Remover Transação)" />
+                    <img
+                      src={trashIcon}
+                      alt="Lixeira (Remover Transação)"
+                      draggable="false"
+                    />
                   </button>
                 </td>
               </tr>

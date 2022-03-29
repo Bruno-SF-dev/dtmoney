@@ -54,7 +54,7 @@ const NewTransactionModal = ({
         onClick={onCloseTransactionModal}
         className="react-modal-btn-close"
       >
-        <img src={closeImg} alt="Fechar modal" />
+        <img src={closeImg} alt="Fechar modal" draggable="false" />
       </button>
 
       <Styled.Container onSubmit={handleCreateNewTransaction}>
@@ -79,7 +79,7 @@ const NewTransactionModal = ({
             isActive={type === "deposit"}
             activeColor="green"
           >
-            <img src={incomeImg} alt="Entrada" />
+            <img src={incomeImg} alt="Entrada" draggable="false" />
             <span>Entrada</span>
           </Styled.RadioBox>
 
@@ -89,7 +89,7 @@ const NewTransactionModal = ({
             isActive={type === "withdraw"}
             activeColor="red"
           >
-            <img src={outcomeImg} alt="Saída" />
+            <img src={outcomeImg} alt="Saída" draggable="false" />
             <span>Saída</span>
           </Styled.RadioBox>
         </Styled.TransactionTypeContainer>
