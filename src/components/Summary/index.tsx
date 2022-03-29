@@ -32,7 +32,7 @@ const Summary = () => {
   );
 
   return (
-    <Styled.Container>
+    <Styled.Container isNegative={summary.total < 0}>
       <div>
         <header>
           <p>Entradas</p>
@@ -51,7 +51,7 @@ const Summary = () => {
           <img src={outcomeImg} alt="Saídas" />
         </header>
         <strong>
-          -{" "}
+          -
           {new Intl.NumberFormat("pt-BR", {
             style: "currency",
             currency: "BRL",
