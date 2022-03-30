@@ -1,17 +1,44 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TransactionsListContext } from "../../contexts/transactionsListContext";
 
 import * as Styled from "./styles";
 
 import trashIcon from "../../assets/trash.svg";
+import { RemoveTransactionModal } from "../RemoveTransactionModal";
+
+interface Transaction {
+  id: string;
+  title: string;
+  amount: number;
+  category: string;
+  type: string;
+  createdAt: number;
+}
 
 const TransactionsTable = () => {
-  const { transactionsList, removeTransaction } = useContext(
-    TransactionsListContext,
+  const { transactionsList } = useContext(TransactionsListContext);
+  const [transactionId, setTransactionId] = useState("");
+
+  const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
+  const [transactionSelected, setTransactionSelected] = useState(
+    {} as Transaction,
   );
 
-  const handleRemoveTransaction = (transactionId: string) => {
-    removeTransaction(transactionId);
+  const handleOpenRemoveModal = (id: string) => {
+    setTransactionId(id);
+    setIsRemoveModalOpen(true);
+  };
+
+  useEffect(() => {
+    const transacionFound = transactionsList.find(
+      (transaction) => transaction.id === transactionId,
+    );
+
+    if (transacionFound) setTransactionSelected(transacionFound);
+  }, [transactionId]);
+
+  const handleCloseRemoveModal = () => {
+    setIsRemoveModalOpen(false);
   };
 
   return (
@@ -48,7 +75,7 @@ const TransactionsTable = () => {
                   </span>
                   <button
                     title="Remover Transação"
-                    onClick={() => handleRemoveTransaction(transaction.id)}
+                    onClick={() => handleOpenRemoveModal(transaction.id)}
                   >
                     <img
                       src={trashIcon}
@@ -62,6 +89,12 @@ const TransactionsTable = () => {
           </tbody>
         </table>
       )}
+      <RemoveTransactionModal
+        isOpen={isRemoveModalOpen}
+        onCloseRemoveModal={handleCloseRemoveModal}
+        transactionId={transactionId}
+        transactionSelected={transactionSelected}
+      />
     </Styled.Container>
   );
 };
