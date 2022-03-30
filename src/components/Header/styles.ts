@@ -23,7 +23,7 @@ export const Content = styled.div`
     }
   }
 
-  button {
+  & > button {
     font-size: 1rem;
     color: #ffffff;
     background: var(--dark-gray);

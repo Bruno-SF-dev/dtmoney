@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signOut,
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../services/firebase";
@@ -33,6 +34,7 @@ interface AuthContextData {
   isLoading: boolean;
   onCreateUser: (user: CreateUserData) => Promise<void>;
   onLogin: (user: LoginData) => Promise<void>;
+  onSignOut: () => Promise<void>;
 }
 
 export const AuthContext = createContext<AuthContextData>(
@@ -94,9 +96,23 @@ export function AuthProvider({ children }: AuthProviderProps) {
     });
   };
 
+  const onSignOut = async () => {
+    await signOut(auth);
+
+    setUser({} as User);
+    setIsAuthenticated(false);
+  };
+
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticated, isLoading, onCreateUser, onLogin }}
+      value={{
+        user,
+        isAuthenticated,
+        isLoading,
+        onCreateUser,
+        onLogin,
+        onSignOut,
+      }}
     >
       {children}
     </AuthContext.Provider>

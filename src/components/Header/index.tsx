@@ -1,8 +1,10 @@
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/authContext";
+
 import * as Styled from "./styles";
 
 import logoImg from "../../assets/logo.svg";
-import { useContext } from "react";
-import { AuthContext } from "../../contexts/authContext";
+import { LogoutComponent } from "../LogoutComponent";
 
 interface HeaderProps {
   onOpenNewTransactionModal: () => void;
@@ -11,14 +13,17 @@ interface HeaderProps {
 const Header = ({ onOpenNewTransactionModal }: HeaderProps) => {
   const { user } = useContext(AuthContext);
 
-  console.log(user.userName);
-
   return (
     <Styled.Container>
       <Styled.Content>
         <div>
           <img src={logoImg} alt="dt money" draggable="false" />
-          {user.userName && <h2>| {user.userName}</h2>}
+          {user.userName && (
+            <>
+              <h2>| {user.userName}</h2>
+              <LogoutComponent />
+            </>
+          )}
         </div>
         <button type="button" onClick={onOpenNewTransactionModal}>
           Nova transação
