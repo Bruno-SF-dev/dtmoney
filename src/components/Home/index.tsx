@@ -22,7 +22,7 @@ export function Home() {
       <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
       <Dashboard />
       <NewTransactionModal
-        onCloseTransactionModal={handleCloseNewTransactionModal}
+        onCloseNewTransactionModal={handleCloseNewTransactionModal}
         isOpen={isNewTransactionsModalOpen}
       />
     </TransactionsListProvider>

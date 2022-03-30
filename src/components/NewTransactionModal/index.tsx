@@ -10,12 +10,12 @@ import outcomeImg from "../../assets/outcome.svg";
 
 interface NewTransactionModalProps {
   isOpen: boolean;
-  onCloseTransactionModal: () => void;
+  onCloseNewTransactionModal: () => void;
 }
 
 const NewTransactionModal = ({
   isOpen,
-  onCloseTransactionModal,
+  onCloseNewTransactionModal,
 }: NewTransactionModalProps) => {
   const { createTransaction } = useContext(TransactionsListContext);
 
@@ -39,19 +39,19 @@ const NewTransactionModal = ({
     setTitle("");
     setAmount("");
     setCategory("");
-    onCloseTransactionModal();
+    onCloseNewTransactionModal();
   };
 
   return (
     <Modal
       isOpen={isOpen}
-      onRequestClose={onCloseTransactionModal}
+      onRequestClose={onCloseNewTransactionModal}
       overlayClassName="react-modal-overlay"
       className="react-modal-content"
     >
       <button
         type="button"
-        onClick={onCloseTransactionModal}
+        onClick={onCloseNewTransactionModal}
         className="react-modal-btn-close"
       >
         <img src={closeImg} alt="Fechar modal" draggable="false" />
