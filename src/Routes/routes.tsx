@@ -5,6 +5,7 @@ import { FormLogin } from "../components/FormLogin";
 import { FormCreateUser } from "../components/FormCreateUser";
 import { AuthPage } from "../components/AuthPage";
 import { AuthRequire } from "./AuthRequire";
+import { SignOutRequire } from "./SignOutRequire";
 
 export function RoutesApp() {
   return (
@@ -18,8 +19,15 @@ export function RoutesApp() {
             </AuthRequire>
           }
         />
-        <Route path="/auth" element={<AuthPage />}>
-          <Route path="signIn" element={<FormCreateUser />} />
+        <Route
+          path="/auth"
+          element={
+            <SignOutRequire>
+              <AuthPage />
+            </SignOutRequire>
+          }
+        >
+          <Route path="sign-up" element={<FormCreateUser />} />
           <Route path="login" element={<FormLogin />} />
         </Route>
       </Routes>

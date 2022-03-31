@@ -12,13 +12,13 @@ export function AuthPage() {
           to="login"
           className={pathname === "/auth/login" ? "is-active" : ""}
         >
-          Login
+          Entrar
         </Link>
         <Link
-          to="signIn"
-          className={pathname === "/auth/signIn" ? "is-active" : ""}
+          to="sign-up"
+          className={pathname === "/auth/sign-up" ? "is-active" : ""}
         >
-          SignIn
+          Criar conta
         </Link>
       </header>
       <main>

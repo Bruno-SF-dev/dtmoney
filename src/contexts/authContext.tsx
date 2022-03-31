@@ -49,15 +49,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (userState) => {
       if (userState) {
-        setIsAuthenticated(true);
-
         setUser({
           id: userState.uid,
           userName: userState.displayName,
         });
 
-        setIsAuthenticated(true);
         setIsLoading(false);
+        setIsAuthenticated(true);
       } else {
         setIsAuthenticated(false);
         setIsLoading(false);
@@ -81,6 +79,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
     });
 
     console.log("User created", created.user);
+
+    // para não redirecionar direto para Home
+    onSignOut();
+    console.log("SAIU!");
   };
 
   const onLogin = async (loginUserData: LoginData) => {
