@@ -45,6 +45,7 @@ interface TransactionContextData {
   transactionsList: Transaction[];
   createTransaction: (transactionData: TransactionData) => Promise<void>;
   removeTransaction: (transactionId: string) => void;
+  transactionsListIsLoading: boolean;
 }
 
 export const TransactionsListContext = createContext<TransactionContextData>(
@@ -56,6 +57,8 @@ export function TransactionsListProvider({
 }: TransactionsListProviderProps) {
   const { user } = useContext(AuthContext);
   const [transactionsList, setTransactionsList] = useState<Transaction[]>([]);
+  const [transactionsListIsLoading, setTransactionsListIsLoading] =
+    useState(true);
 
   useEffect(() => {
     const transactionsRef = ref(database, `transactions/${user.id}`);
@@ -82,6 +85,7 @@ export function TransactionsListProvider({
       );
 
       setTransactionsList(parsedTransactions);
+      setTransactionsListIsLoading(false);
     });
   }, []);
 
@@ -103,7 +107,12 @@ export function TransactionsListProvider({
 
   return (
     <TransactionsListContext.Provider
-      value={{ transactionsList, createTransaction, removeTransaction }}
+      value={{
+        transactionsList,
+        createTransaction,
+        removeTransaction,
+        transactionsListIsLoading,
+      }}
     >
       {children}
     </TransactionsListContext.Provider>

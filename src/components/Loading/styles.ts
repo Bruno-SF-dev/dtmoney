@@ -8,7 +8,11 @@ export const Container = styled.div`
 `;
 
 export const Loader = styled.div`
+  width: 100%;
+  display: flex;
+
   .lds-ripple {
+    margin: 0 auto;
     display: inline-block;
     position: relative;
     width: 80px;

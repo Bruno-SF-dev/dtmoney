@@ -5,6 +5,7 @@ import * as Styled from "./styles";
 
 import trashIcon from "../../assets/trash.svg";
 import { RemoveTransactionModal } from "../RemoveTransactionModal";
+import { Loader } from "../Loading";
 
 interface Transaction {
   id: string;
@@ -16,7 +17,9 @@ interface Transaction {
 }
 
 const TransactionsTable = () => {
-  const { transactionsList } = useContext(TransactionsListContext);
+  const { transactionsList, transactionsListIsLoading } = useContext(
+    TransactionsListContext,
+  );
   const [transactionId, setTransactionId] = useState("");
 
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
@@ -43,11 +46,13 @@ const TransactionsTable = () => {
 
   return (
     <Styled.Container>
-      {transactionsList.length === 0 && (
+      {transactionsListIsLoading && <Loader />}
+
+      {!transactionsListIsLoading && transactionsList.length === 0 && (
         <p>Você ainda não inseriu nenhuma transação.</p>
       )}
 
-      {transactionsList.length > 0 && (
+      {!transactionsListIsLoading && transactionsList.length > 0 && (
         <table>
           <thead>
             <th>Título</th>
