@@ -6,8 +6,6 @@
 
 Projeto para controle financeiro, em que o usuário adiciona Entradas e Saídas e o sistema calcula o saldo desse usuário. As transações adicionadas ficam numa “tabela” com suas as informações.
 
-A origem desse projeto é a trilha de React do Ignite da Rocketseat. Adicionei detalhes a mais, como:
-
 • Fluxo de autenticação, com o Firebase, de modo que a aplicação possa individualizar os usuários.
 
 • Armazenar as transações em um banco de dados do Firebase, o Realtime Database.
@@ -24,6 +22,3 @@ A ideia era reaproveitar esse projeto para entender alguns dos serviços do Fire
 - Firebase Authentication
 - React Router
 
-### LinkedIn
-
-https://www.linkedin.com/feed/update/urn:li:activity:6917297986716717057/
