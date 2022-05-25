@@ -18,9 +18,9 @@ const Header = ({ onOpenNewTransactionModal }: HeaderProps) => {
       <Styled.Content>
         <div>
           <img src={logoImg} alt="dt money" draggable="false" />
-          {user.userName && (
+          {user.name && (
             <>
-              <h2>| {user.userName}</h2>
+              <h2>| {user.name}</h2>
               <LogoutComponent />
             </>
           )}

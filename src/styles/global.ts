@@ -144,4 +144,23 @@ export const GlobalStyle = createGlobalStyle`
       filter: brightness(.8);
     }
   }
+
+  
+  p.alert-message {
+    margin: 3px 0px 6px;
+    font-size: 12px;
+    text-align: center;
+    color: var(--red);
+
+    opacity: 0;
+    transform: translateY(10px);
+    animation: alert-message-enter 0.4s forwards ease;
+  }
+
+  @keyframes alert-message-enter {
+    to {
+      opacity: 1;
+    transform: translateY(0);
+    }
+  }
 `;

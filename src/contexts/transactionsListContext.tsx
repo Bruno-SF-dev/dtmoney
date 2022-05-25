@@ -63,13 +63,8 @@ export function TransactionsListProvider({
   useEffect(() => {
     const transactionsRef = ref(database, `transactions/${user.id}`);
 
-    console.log("transactionsRef", transactionsRef);
-
     onValue(transactionsRef, (transactions) => {
       const transactionsObj: FirebaseTransactionsObj = transactions.val() || {};
-
-      console.log("transactions", transactions);
-      console.log("transactionsObj", transactionsObj);
 
       const parsedTransactions = Object.entries(transactionsObj).map(
         ([key, value]) => {

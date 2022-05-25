@@ -23,9 +23,16 @@ const NewTransactionModal = ({
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
+  const [hasError, setHasError] = useState(false);
 
   const handleCreateNewTransaction = async (e: FormEvent) => {
     e.preventDefault();
+    setHasError(false);
+
+    if (!type.trim() || !title.trim() || !amount.trim() || !category.trim()) {
+      setHasError(true);
+      return;
+    }
 
     await createTransaction({
       title,
@@ -35,6 +42,7 @@ const NewTransactionModal = ({
       createdAt: Date.now(),
     });
 
+    setHasError(false);
     setType("deposit");
     setTitle("");
     setAmount("");
@@ -59,6 +67,7 @@ const NewTransactionModal = ({
 
       <Styled.Container onSubmit={handleCreateNewTransaction}>
         <h2>Cadastrar transação</h2>
+        {hasError && <p className="alert-message">Preencha todos os campos</p>}
 
         <input
           placeholder="Título"

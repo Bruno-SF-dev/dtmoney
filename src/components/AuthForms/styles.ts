@@ -15,4 +15,18 @@ export const Container = styled.div`
     margin-bottom: 32px;
     text-align: center;
   }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .error-message {
+    margin-top: 3px;
+    font-size: 12px;
+    color: var(--red);
+  }
 `;
+
+export const FieldContainer = styled.div``;

@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { Home } from "../components/Home";
-import { FormLogin } from "../components/FormLogin";
-import { FormCreateUser } from "../components/FormCreateUser";
+import { FormSignIn } from "../components/AuthForms/FormSignIn";
+import { FormCreateUser } from "../components/AuthForms/FormCreateUser";
 import { AuthPage } from "../components/AuthPage";
 import { AuthRequire } from "./AuthRequire";
 import { SignOutRequire } from "./SignOutRequire";
@@ -28,7 +28,7 @@ export function RoutesApp() {
           }
         >
           <Route path="sign-up" element={<FormCreateUser />} />
-          <Route path="login" element={<FormLogin />} />
+          <Route path="login" element={<FormSignIn />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,12 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signOut,
-  updateProfile,
-} from "firebase/auth";
-import { auth } from "../services/firebase";
+import { api } from "../services/api";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -14,16 +7,16 @@ interface AuthProviderProps {
 
 interface User {
   id: string;
-  userName: string | null;
+  name: string | null;
 }
 
 interface CreateUserData {
   email: string;
   password: string;
-  userName: string;
+  name: string;
 }
 
-interface LoginData {
+interface SignInData {
   email: string;
   password: string;
 }
@@ -33,7 +26,7 @@ interface AuthContextData {
   isAuthenticated: boolean;
   isLoading: boolean;
   onCreateUser: (user: CreateUserData) => Promise<void>;
-  onLogin: (user: LoginData) => Promise<void>;
+  onSignIn: (user: SignInData) => Promise<void>;
   onSignOut: () => Promise<void>;
 }
 
@@ -47,62 +40,65 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (userState) => {
-      if (userState) {
+    async function getUser() {
+      setIsLoading(true);
+
+      const token = localStorage.getItem("auth-jwt-token");
+
+      if (token) {
+        api.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(
+          token,
+        )}`;
+
+        // rota para buscar as informações do usuário
+        const {
+          data: { userData },
+        } = await api.post("user-data");
+
         setUser({
-          id: userState.uid,
-          userName: userState.displayName,
+          id: userData.id,
+          name: userData.name,
         });
 
-        setIsLoading(false);
         setIsAuthenticated(true);
-      } else {
-        setIsAuthenticated(false);
-        setIsLoading(false);
       }
-    });
 
-    return () => {
-      unsubscribe();
-    };
+      setIsLoading(false);
+    }
+
+    getUser();
   }, []);
 
-  const onCreateUser = async (createUserData: CreateUserData) => {
-    const created = await createUserWithEmailAndPassword(
-      auth,
-      createUserData.email,
-      createUserData.password,
-    );
-
-    updateProfile(created.user, {
-      displayName: createUserData.userName,
+  const onCreateUser = async ({ name, email, password }: CreateUserData) => {
+    await api.post("create-user", {
+      name,
+      email,
+      password,
     });
-
-    console.log("User created", created.user);
-
-    // para não redirecionar direto para Home
-    onSignOut();
-    console.log("SAIU!");
   };
 
-  const onLogin = async (loginUserData: LoginData) => {
-    const logged = await signInWithEmailAndPassword(
-      auth,
-      loginUserData.email,
-      loginUserData.password,
-    );
+  const onSignIn = async ({ email, password }: SignInData) => {
+    const res = await api.post("auth", {
+      email,
+      password,
+    });
+
+    const { token, user } = res.data;
+
+    localStorage.setItem("auth-jwt-token", JSON.stringify(token));
 
     setUser({
-      id: logged.user.uid,
-      userName: logged.user.displayName,
+      id: user._id,
+      name: user.name,
     });
+    setIsAuthenticated(true);
   };
 
   const onSignOut = async () => {
-    await signOut(auth);
-
-    setUser({} as User);
     setIsAuthenticated(false);
+    localStorage.removeItem("auth-jwt-token");
+    api.defaults.headers.common["Authorization"] = "";
+    setUser({} as User);
   };
 
   return (
@@ -112,7 +108,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         isAuthenticated,
         isLoading,
         onCreateUser,
-        onLogin,
+        onSignIn,
         onSignOut,
       }}
     >
