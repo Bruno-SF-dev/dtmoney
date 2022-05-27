@@ -36,7 +36,7 @@ export function FormCreateUser() {
       await onCreateUser({ email, password, name });
 
       setCreateUserError("");
-      navigate("/auth/login");
+      navigate("/auth/sign-in");
     } catch (err) {
       setCreateUserError("Não foi possível criar o usuário.");
       return;

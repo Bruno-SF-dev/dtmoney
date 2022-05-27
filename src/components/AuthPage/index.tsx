@@ -9,8 +9,8 @@ export function AuthPage() {
     <Styled.Container>
       <header>
         <Link
-          to="login"
-          className={pathname === "/auth/login" ? "is-active" : ""}
+          to="sign-in"
+          className={pathname === "/auth/sign-in" ? "is-active" : ""}
         >
           Entrar
         </Link>

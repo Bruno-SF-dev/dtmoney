@@ -18,6 +18,6 @@ export function AuthRequire({ children }: AuthRequireProps) {
   return isAuthenticated ? (
     children
   ) : (
-    <Navigate to="/auth/login" state={{ from: location }} replace />
+    <Navigate to="/auth/sign-in" state={{ from: location }} replace />
   );
 }

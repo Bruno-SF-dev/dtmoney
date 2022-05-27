@@ -28,7 +28,7 @@ export function RoutesApp() {
           }
         >
           <Route path="sign-up" element={<FormCreateUser />} />
-          <Route path="login" element={<FormSignIn />} />
+          <Route path="sign-in" element={<FormSignIn />} />
         </Route>
       </Routes>
     </BrowserRouter>
