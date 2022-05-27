@@ -52,6 +52,7 @@ export const GlobalStyle = createGlobalStyle`
 
   button {
     cursor: pointer;
+    border: 0;
   }
 
   input {
@@ -70,10 +71,6 @@ export const GlobalStyle = createGlobalStyle`
       color: ${transparentize(0.3, "#aaaaaa")};
     }
 
-    & + input {
-      margin-top: 1rem;
-    }
-
     &[type="number"] {
       -moz-appearance: textfield;
     }
@@ -81,27 +78,6 @@ export const GlobalStyle = createGlobalStyle`
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;
-    }
-  }
-
-  button.btn-submit {
-    margin-top: 1.5rem;
-    width: 100%;
-    height: 3.5rem;
-    padding: 0 1.5rem;
-    border-radius: 0.25rem;
-
-    border: 0;
-    background: var(--green);
-
-    font-size: 1rem;
-    font-weight: 600;
-    color: #ffffff;
-
-    transition: filter 0.2s;
-
-    &:hover {
-      filter: brightness(0.9);
     }
   }
 
@@ -161,7 +137,7 @@ export const GlobalStyle = createGlobalStyle`
   @keyframes alert-message-enter {
     to {
       opacity: 1;
-    transform: translateY(0);
+      transform: translateY(0);
     }
   }
   

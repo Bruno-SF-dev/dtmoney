@@ -24,7 +24,7 @@ export function FormCreateUser() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<CreateUserFormData>({
     resolver: yupResolver(schemaValidation),
   });
@@ -34,6 +34,9 @@ export function FormCreateUser() {
     email,
     password,
   }) => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // just to display the loader animation
+
     try {
       await onCreateUser({ email, password, name });
 
@@ -66,9 +69,7 @@ export function FormCreateUser() {
           error={errors.password}
         />
 
-        <button className="btn-submit" type="submit">
-          Cadastrar
-        </button>
+        <SubmitButton isSubmitting={isSubmitting}>Cadastrar</SubmitButton>
       </form>
     </Styled.FormContainer>
   );

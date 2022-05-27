@@ -23,7 +23,7 @@ export function FormSignIn() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<SignInFormData>({
     resolver: yupResolver(schemaValidation),
   });
@@ -32,6 +32,9 @@ export function FormSignIn() {
     email,
     password,
   }) => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // just to display the loader animation
+
     try {
       await onSignIn({ email, password });
 
@@ -62,9 +65,7 @@ export function FormSignIn() {
           error={errors.password}
         />
 
-        <button className="btn-submit" type="submit">
-          Entrar
-        </button>
+        <SubmitButton isSubmitting={isSubmitting}>Entrar</SubmitButton>
       </form>
     </Styled.FormContainer>
   );
