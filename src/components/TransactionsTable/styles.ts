@@ -11,6 +11,7 @@ export const Container = styled.div`
   table {
     width: 100%;
     border-spacing: 0 0.5rem;
+    animation: enter-from-right 0.6s forwards;
 
     th {
       color: var(--dark-gray-soft);

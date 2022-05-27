@@ -10,7 +10,7 @@ export const Container = styled.div<SummaryProps>`
   gap: 2rem;
   margin-top: -8rem;
 
-  div {
+  animation: enter-from-top 0.6s forwards;
     background: var(--dark-gray);
     padding: 1.5rem 2rem;
     border-radius: 0.25rem;

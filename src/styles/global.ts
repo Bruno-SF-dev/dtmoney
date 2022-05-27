@@ -157,10 +157,35 @@ export const GlobalStyle = createGlobalStyle`
     animation: alert-message-enter 0.4s forwards ease;
   }
 
+  // Animations
   @keyframes alert-message-enter {
     to {
       opacity: 1;
     transform: translateY(0);
+    }
+  }
+  
+  @keyframes enter-from-top {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes enter-from-right {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
     }
   }
 `;

@@ -9,6 +9,8 @@ export const Container = styled.div`
   border-radius: 4px;
   background: var(--dark-black);
 
+  animation: enter-from-top 0.8s forwards;
+
   h2 {
     color: var(--dark-white);
     font-size: 1.5rem;
