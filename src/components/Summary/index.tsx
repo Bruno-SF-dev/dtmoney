@@ -8,7 +8,9 @@ import outcomeImg from "../../assets/outcome.svg";
 import totalImg from "../../assets/total.svg";
 
 const Summary = () => {
-  const { transactionsList } = useContext(TransactionsListContext);
+  const { transactionsList, transactionsListIsLoading } = useContext(
+    TransactionsListContext,
+  );
 
   const summary = transactionsList.reduce(
     (acc, transaction) => {
@@ -31,9 +33,13 @@ const Summary = () => {
     },
   );
 
+  if (transactionsListIsLoading) {
+    return null;
+  }
+
   return (
-    <Styled.Container isNegative={summary.total < 0}>
-      <div>
+    <Styled.Container>
+      <Styled.SummaryCard>
         <header>
           <p>Entradas</p>
           <img src={incomeImg} alt="Entradas" draggable="false" />
@@ -44,8 +50,9 @@ const Summary = () => {
             currency: "BRL",
           }).format(summary.deposits)}
         </strong>
-      </div>
-      <div>
+      </Styled.SummaryCard>
+
+      <Styled.SummaryCard>
         <header>
           <p>Saídas</p>
           <img src={outcomeImg} alt="Saídas" draggable="false" />
@@ -57,8 +64,12 @@ const Summary = () => {
             currency: "BRL",
           }).format(summary.withdraws)}
         </strong>
-      </div>
-      <div className="highlight-background">
+      </Styled.SummaryCard>
+
+      <Styled.SummaryCard
+        className="highlight-background"
+        isNegative={summary.total < 0}
+      >
         <header>
           <p>Total</p>
           <img src={totalImg} alt="Total" draggable="false" />
@@ -69,7 +80,7 @@ const Summary = () => {
             currency: "BRL",
           }).format(summary.total)}
         </strong>
-      </div>
+      </Styled.SummaryCard>
     </Styled.Container>
   );
 };
