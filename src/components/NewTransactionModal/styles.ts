@@ -2,15 +2,18 @@ import { transparentize } from "polished";
 import styled from "styled-components";
 
 export const Container = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
   h2 {
     color: var(--dark-white);
     font-size: 1.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 `;
 
 export const TransactionTypeContainer = styled.div`
-  margin: 1rem 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.5rem;

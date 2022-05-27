@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const FormContainer = styled.div`
   width: 400px;
   display: flex;
   flex-direction: column;
@@ -23,12 +23,4 @@ export const Container = styled.div`
     flex-direction: column;
     gap: 16px;
   }
-
-  .error-message {
-    margin-top: 3px;
-    font-size: 12px;
-    color: var(--red);
-  }
 `;
-
-export const FieldContainer = styled.div``;

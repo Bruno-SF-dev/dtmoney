@@ -7,6 +7,7 @@ import * as Styled from "./styles";
 import closeImg from "../../assets/close.svg";
 import incomeImg from "../../assets/income.svg";
 import outcomeImg from "../../assets/outcome.svg";
+import { SubmitButton } from "../SubmitButton";
 
 interface NewTransactionModalProps {
   isOpen: boolean;
@@ -109,9 +110,7 @@ const NewTransactionModal = ({
           onChange={(e) => setCategory(e.target.value)}
         />
 
-        <button type="submit" className="btn-submit">
-          Cadastrar
-        </button>
+        <SubmitButton>Cadastrar</SubmitButton>
       </Styled.Container>
     </Modal>
   );

@@ -4,9 +4,11 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaValidation } from "./schemaValidation";
 
-import { AuthContext } from "../../../contexts/authContext";
-
 import * as Styled from "../styles";
+
+import { AuthContext } from "../../../contexts/authContext";
+import { Input } from "../Input";
+import { SubmitButton } from "../../SubmitButton";
 
 type CreateUserFormData = {
   name: string;
@@ -44,35 +46,30 @@ export function FormCreateUser() {
   };
 
   return (
-    <Styled.Container>
+    <Styled.FormContainer>
       <h2>Cadastrar</h2>
       {createUserError && <p className="alert-message">{createUserError}</p>}
 
       <form onSubmit={handleSubmit(handleCreateUser)}>
-        <Styled.FieldContainer>
-          <input {...register("name")} name="name" placeholder="Nome" />
-          <p className="error-message">{errors.name?.message}</p>
-        </Styled.FieldContainer>
+        <Input {...register("name")} placeholder="Nome" error={errors.name} />
 
-        <Styled.FieldContainer>
-          <input {...register("email")} name="email" placeholder="E-mail" />
-          <p className="error-message">{errors.email?.message}</p>
-        </Styled.FieldContainer>
+        <Input
+          {...register("email")}
+          placeholder="E-mail"
+          error={errors.email}
+        />
 
-        <Styled.FieldContainer>
-          <input
-            {...register("password")}
-            name="password"
-            type="password"
-            placeholder="Senha"
-          />
-          <p className="error-message">{errors.password?.message}</p>
-        </Styled.FieldContainer>
+        <Input
+          {...register("password")}
+          type="password"
+          placeholder="Senha"
+          error={errors.password}
+        />
 
         <button className="btn-submit" type="submit">
           Cadastrar
         </button>
       </form>
-    </Styled.Container>
+    </Styled.FormContainer>
   );
 }
