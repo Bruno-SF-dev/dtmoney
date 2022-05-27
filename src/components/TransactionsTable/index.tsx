@@ -32,12 +32,13 @@ const TransactionsTable = () => {
     setIsRemoveModalOpen(true);
   };
 
+  // pegar a Transaction selecionada para exibir seu nome no modal
   useEffect(() => {
-    const transacionFound = transactionsList.find(
+    const transactionFound = transactionsList.find(
       (transaction) => transaction.id === transactionId,
     );
 
-    if (transacionFound) setTransactionSelected(transacionFound);
+    if (transactionFound) setTransactionSelected(transactionFound);
   }, [transactionId]);
 
   const handleCloseRemoveModal = () => {
