@@ -14,6 +14,10 @@ interface NewTransactionModalProps {
   onCloseNewTransactionModal: () => void;
 }
 
+function onlyNumbers(value: string) {
+  return value.replace(/\D/g, "");
+}
+
 const NewTransactionModal = ({
   isOpen,
   onCloseNewTransactionModal,
@@ -35,9 +39,12 @@ const NewTransactionModal = ({
       return;
     }
 
+    // divide por 100 para considerar as casas decimais
+    const amountFormatted = Number(onlyNumbers(amount)) / 100;
+
     await createTransaction({
       title,
-      amount: Number(amount),
+      amount: amountFormatted,
       category,
       type,
       createdAt: Date.now(),
@@ -50,6 +57,17 @@ const NewTransactionModal = ({
     setCategory("");
     onCloseNewTransactionModal();
   };
+
+  function handleChangeCurrencyField(e: FormEvent<HTMLInputElement>) {
+    let value = e.currentTarget.value;
+    value = value.replace(/\D/g, "");
+    value = value.replace(/(\d)(\d{2})$/, "$1,$2");
+    value = value.replace(/(?=(\d{3})+(\D))\B/g, ".");
+
+    e.currentTarget.value = value;
+    setAmount(value);
+    return e;
+  }
 
   return (
     <Modal
@@ -76,10 +94,9 @@ const NewTransactionModal = ({
           onChange={(e) => setTitle(e.target.value)}
         />
         <input
-          type="number"
           placeholder="Valor"
           value={amount}
-          onChange={(e) => setAmount(e.target.value)}
+          onChange={handleChangeCurrencyField}
         />
 
         <Styled.TransactionTypeContainer>
